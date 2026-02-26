@@ -1,0 +1,14 @@
+# Local secrets
+.env
+
+# Virtual environment
+autopm/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Mac system files
+.DS_Store
+.ipynb_checkpoints
+.python
