@@ -31,9 +31,7 @@ with st.sidebar:
 tab_generate, tab_analyze = st.tabs(["Generate New PRD", "Analyze Existing PRD"])
 
 
-# ════════════════════════════════════════════════════════════════════════════
 # TAB 1 — GENERATE NEW PRD
-# ════════════════════════════════════════════════════════════════════════════
 with tab_generate:
     st.subheader("Generate a PRD from scratch")
     user_idea = st.text_input(
@@ -47,7 +45,6 @@ with tab_generate:
         run_button = st.button("Generate PRD", use_container_width=True, key="generate_btn")
     with col2:
         st.caption("Expect ~3–5 minutes. Seven agents run at the same time, each building on the last, so just vibe out for now.")
-
     if run_button:
         if not user_idea.strip():
             st.warning("Please enter a product idea first.")
@@ -64,7 +61,8 @@ with tab_generate:
                 "Agent 6/7: Red-teaming all assumptions...",
                 "Agent 7/7: Synthesizing the full PRD...",
             ]
-
+            
+            #Fix Progress Bar it doesn't update 
             def update_progress(step: int):
                 progress_bar.progress(int((step / len(agent_steps)) * 100))
                 status_text.info(agent_steps[step - 1])
