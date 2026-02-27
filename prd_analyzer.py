@@ -13,7 +13,7 @@ import pdfplumber
 from crewai import Crew, Process, Task
 from agents import critic, writer, researcher
 
-# ── PDF TEXT EXTRACTION ───────────────────────────────────────────────────────
+# PDF TEXT EXTRACTION 
 
 def extract_text_from_pdf(uploaded_file) -> str:
     """
@@ -36,7 +36,7 @@ def extract_text_from_pdf(uploaded_file) -> str:
     return "\n\n".join(pages_text)
 
 
-# ── STAGE 1: CRITIQUE ─────────────────────────────────────────────────────────
+# STAGE 1: CRITIQUE 
 
 def critique_prd(prd_text: str) -> str:
     """
@@ -92,7 +92,7 @@ def critique_prd(prd_text: str) -> str:
     return str(result)
 
 
-# ── STAGE 2: REWRITE ──────────────────────────────────────────────────────────
+# STAGE 2: REWRITE 
 
 def rewrite_prd(prd_text: str, critique_text: str) -> str:
     """
@@ -101,7 +101,7 @@ def rewrite_prd(prd_text: str, critique_text: str) -> str:
     The researcher validates any market or competitive claims in parallel context.
     """
 
-    # Task 1: researcher validates competitive/market claims in the original PRD
+    # Task 1: researcher validates competitive/market claims in the original PRD uses researcher agent 
     validate_task = Task(
         description=(
             "An existing PRD has been critiqued and is being rewritten. "

@@ -4,7 +4,7 @@ from agents import (
     ux_researcher, financial_analyst, risk_analyst, critic
 )
 
-# ── TASK 1: Market Research ───────────────────────────────────────────────────
+# TASK 1: Market Research 
 research_task = Task(
     description=(
         'Conduct a deep competitive analysis of the current market for {product_idea}. '
@@ -22,7 +22,7 @@ research_task = Task(
     agent=researcher
 )
 
-# ── TASK 2: UX Research ───────────────────────────────────────────────────────
+#TASK 2: UX Research 
 ux_task = Task(
     description=(
         'Define the human side of {product_idea}. '
@@ -43,7 +43,7 @@ ux_task = Task(
     context=[research_task]
 )
 
-# ── TASK 3: Technical Architecture ───────────────────────────────────────────
+#TASK 3: Technical Architecture 
 tech_task = Task(
     description=(
         'Perform a technical feasibility assessment for {product_idea}. '
@@ -59,14 +59,14 @@ tech_task = Task(
         'A Technical Feasibility Report with: '
         '(1) 3 named bottlenecks, each with a description, quantified impact, and mitigation approach, '
         '(2) A recommended MVP tech stack (frontend, backend, data layer, infra), '
-        '(3) An "ORIE Insight" — one optimization or systems-design observation '
+        '(3) An Insight — one optimization or systems-design observation '
         'that could give {product_idea} a structural performance or cost advantage.'
     ),
     agent=tech_architect,
     context=[research_task, ux_task]
 )
 
-# ── TASK 4: Financial Analysis ────────────────────────────────────────────────
+#TASK 4: Financial Analysis 
 financial_task = Task(
     description=(
         'Build a financial profile for {product_idea}. '
@@ -89,7 +89,7 @@ financial_task = Task(
     context=[research_task, ux_task, tech_task]
 )
 
-# ── TASK 5: Risk Assessment ───────────────────────────────────────────────────
+# TASK 5: Risk Assessment
 risk_task = Task(
     description=(
         'Conduct a risk assessment for {product_idea}. '
@@ -112,7 +112,7 @@ risk_task = Task(
     context=[research_task, ux_task, tech_task, financial_task]
 )
 
-# ── TASK 6: Red Team / Critique ───────────────────────────────────────────────
+# TASK 6: Red Team / Critique 
 critic_task = Task(
     description=(
         'Red-team all prior research and analysis for {product_idea}. '
@@ -135,7 +135,7 @@ critic_task = Task(
     context=[research_task, ux_task, tech_task, financial_task, risk_task]
 )
 
-# ── TASK 7: PRD Synthesis ─────────────────────────────────────────────────────
+#TASK 7: PRD Synthesis 
 prd_task = Task(
     description=(
         'You are the final synthesizer. Write a complete, professional Product Requirements Document (PRD) '

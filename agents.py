@@ -4,17 +4,18 @@ from crewai import Agent, LLM
 from crewai.tools import tool
 from tavily import TavilyClient
 
-# 1. Load the keys from your .env file
+#Load Keys
 load_dotenv()
 
-# 2. Setup the Gemini "Brain" using CrewAI's native LLM class
+# Setup Gemini
 gemini_llm = LLM(
-    model="gemini/gemini-2.0-flash-lite",
+    model="gemini-2.5-pro",
     temperature=0.5,
     api_key=os.getenv("GEMINI_API_KEY")
 )
 
-# 3. Setup the Search Tool using CrewAI's native @tool decorator
+ 
+#Setup Tavily Search so that necessary agents can web scrap realtime data. 
 @tool("Tavily Search")
 def search_tool(query: str) -> str:
     """Search the web for current, accurate information. Input should be a search query string."""
@@ -22,19 +23,18 @@ def search_tool(query: str) -> str:
     results = client.search(query=query, max_results=5)
     return str(results)
 
-# ── ORIGINAL AGENTS ──────────────────────────────────────────────────────────
 
 researcher = Agent(
     role='Market Research Analyst',
     goal=(
         'Find real-world 2026 competitors for {product_idea}. '
-        'Go beyond surface-level names — identify pricing tiers, key differentiators, '
+        'Go beyond surface-level names, identify pricing tiers, key differentiators, '
         'and specific gaps in the market that {product_idea} could exploit.'
     ),
     backstory=(
         'You are a senior analyst at a top-tier strategy consulting firm. '
         'You specialize in competitive intelligence and market sizing. '
-        'You never report vague findings — every claim is backed by a source.'
+        'You never report vague findings, but every claim is backed by a source.'
     ),
     tools=[search_tool],
     llm=gemini_llm,
@@ -42,11 +42,10 @@ researcher = Agent(
 )
 
 tech_architect = Agent(
-    role='ORIE Technical Architect',
+    role='Technical Architect',
     goal=(
         'Identify the 3 most critical technical bottlenecks and resource constraints '
-        'for building {product_idea} at scale. '
-        'Apply operations research and systems thinking — quantify where possible.'
+        'for building {product_idea} at scale. Quantify where possible.'
     ),
     backstory=(
         'You hold a PhD in Operations Research and have architected systems at '
@@ -73,7 +72,6 @@ writer = Agent(
     verbose=True
 )
 
-# ── NEW SPECIALIZED AGENTS ───────────────────────────────────────────────────
 
 ux_researcher = Agent(
     role='UX Research Lead',
@@ -105,7 +103,7 @@ financial_analyst = Agent(
     backstory=(
         'You are a former VC analyst turned startup CFO. You have evaluated over 300 pitch decks '
         'and built financial models for 12 funded companies. '
-        'You are ruthlessly realistic — you call out vanity metrics and unrealistic TAM claims. '
+        'You are realistic, you call out vanity metrics and unrealistic TAM claims. '
         'You always cite comparable companies and funding benchmarks to ground your estimates.'
     ),
     tools=[search_tool],
@@ -126,7 +124,7 @@ risk_analyst = Agent(
         'You are a former cybersecurity attorney turned Chief Risk Officer. '
         'You have navigated GDPR audits, SOC 2 certifications, and FTC investigations. '
         'You think in threat models and probability-weighted impact. '
-        'You are not alarmist — you only flag risks that are realistic and material.'
+        'You are not alarmist, you only flag risks that are realistic and material.'
     ),
     tools=[search_tool],
     llm=gemini_llm,
@@ -145,8 +143,7 @@ critic = Agent(
     backstory=(
         'You are a seasoned product strategist who has killed more bad ideas than you have shipped. '
         'You were the "designated skeptic" on product reviews at Amazon and Netflix. '
-        'You have a talent for spotting the assumption everyone else missed — '
-        'the one that, if wrong, collapses the entire business case.'
+        'You have a talent for spotting the assumption everyone else missed'
     ),
     llm=gemini_llm,
     verbose=True

@@ -11,24 +11,24 @@ st.caption(
     "7 specialized AI agents collaborate to produce or improve a detailed, grounded PRD."
 )
 
-# ── Sidebar: Agent Roster ────────────────────────────────────────────────────
+#Sidebar: Agent Roster on Main page
 with st.sidebar:
-    st.header("🧑‍💼 Agent Roster")
+    st.header("Agent Roster")
     agents_info = [
-        ("🔍", "Market Research Analyst",   "Competitive landscape & market gaps"),
-        ("🧑‍💻", "UX Research Lead",          "User personas & journey mapping"),
-        ("⚙️",  "ORIE Technical Architect",  "Bottlenecks, stack & optimization"),
-        ("💰", "Startup Financial Analyst", "TAM/SAM/SOM, pricing & MVP cost"),
-        ("🛡️",  "Risk & Compliance Officer", "Regulatory, security & market risks"),
-        ("🔴", "Product Critic / Red Team", "Challenges assumptions & blind spots"),
-        ("📝", "Lead Product Manager",      "Synthesizes everything into the PRD"),
+        ("Market Research Analyst",   "Competitive landscape & market gaps"),
+        ("UX Research Lead",          "User personas & journey mapping"),
+        ("Technical Architect",  "Bottlenecks, stack & optimization"),
+        ("Startup Financial Analyst", "TAM/SAM/SOM, pricing & MVP cost"),
+        ("Risk & Compliance Officer", "Regulatory, security & market risks"),
+        ("Product Critic / Red Team", "Challenges assumptions & blind spots"),
+        ("Lead Product Manager",      "Synthesizes everything into the PRD"),
     ]
-    for icon, role, description in agents_info:
-        with st.expander(f"{icon} {role}"):
+    for role, description in agents_info:
+        with st.expander(f"{role}"):
             st.caption(description)
 
-# ── Tabs ─────────────────────────────────────────────────────────────────────
-tab_generate, tab_analyze = st.tabs(["✨ Generate New PRD", "🔍 Analyze Existing PRD"])
+# Page Tabs 
+tab_generate, tab_analyze = st.tabs(["Generate New PRD", "Analyze Existing PRD"])
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -38,15 +38,15 @@ with tab_generate:
     st.subheader("Generate a PRD from scratch")
     user_idea = st.text_input(
         "Enter your product idea:",
-        placeholder="e.g. A decentralized energy grid management app for Bethesda",
+        placeholder="Can literally be anything bro",
         key="generate_idea"
     )
 
     col1, col2 = st.columns([1, 3])
     with col1:
-        run_button = st.button("🚀 Generate PRD", use_container_width=True, key="generate_btn")
+        run_button = st.button("Generate PRD", use_container_width=True, key="generate_btn")
     with col2:
-        st.caption("⏱️ Expect ~3–5 minutes. Seven agents run sequentially, each building on the last.")
+        st.caption("Expect ~3–5 minutes. Seven agents run at the same time, each building on the last, so just vibe out for now.")
 
     if run_button:
         if not user_idea.strip():
@@ -56,13 +56,13 @@ with tab_generate:
             status_text  = st.empty()
 
             agent_steps = [
-                "🔍 Agent 1/7: Researching the competitive landscape...",
-                "🧑‍💻 Agent 2/7: Mapping user personas & journeys...",
-                "⚙️  Agent 3/7: Assessing technical feasibility...",
-                "💰 Agent 4/7: Building the financial profile...",
-                "🛡️  Agent 5/7: Running risk & compliance review...",
-                "🔴 Agent 6/7: Red-teaming all assumptions...",
-                "📝 Agent 7/7: Synthesizing the full PRD...",
+                "Agent 1/7: Researching the competitive landscape...",
+                "Agent 2/7: Mapping user personas & journeys...",
+                "Agent 3/7: Assessing technical feasibility...",
+                "Agent 4/7: Building the financial profile...",
+                "Agent 5/7: Running risk & compliance review...",
+                "Agent 6/7: Red-teaming all assumptions...",
+                "Agent 7/7: Synthesizing the full PRD...",
             ]
 
             def update_progress(step: int):
@@ -85,7 +85,7 @@ with tab_generate:
                 result = auto_pm_crew.kickoff(inputs={'product_idea': user_idea})
 
                 progress_bar.progress(100)
-                status_text.success("✅ All 7 agents complete!")
+                status_text.success("All 7 agents complete!")
 
                 st.success("PRD Generated Successfully!")
                 st.divider()
@@ -106,9 +106,8 @@ with tab_generate:
                 st.exception(e)
 
 
-# ════════════════════════════════════════════════════════════════════════════
 # TAB 2 — ANALYZE EXISTING PRD
-# ════════════════════════════════════════════════════════════════════════════
+
 with tab_analyze:
     st.subheader("Analyze & improve an existing PRD")
     st.caption(
@@ -123,11 +122,11 @@ with tab_analyze:
         help="Upload a text-based PDF. Scanned/image PDFs are not supported."
     )
 
-    # ── Stage 1: Critique ────────────────────────────────────────────────────
+    #Stage 1: Critique 
     if uploaded_file is not None:
-        st.info(f"📄 Uploaded: **{uploaded_file.name}** ({round(uploaded_file.size / 1024, 1)} KB)")
+        st.info(f"Uploaded: **{uploaded_file.name}** ({round(uploaded_file.size / 1024, 1)} KB)")
 
-        if st.button("🔴 Run Critique", use_container_width=False, key="critique_btn"):
+        if st.button("Run Critique", use_container_width=False, key="critique_btn"):
             with st.spinner("Extracting text from PDF..."):
                 try:
                     prd_text = extract_text_from_pdf(uploaded_file)
@@ -140,9 +139,9 @@ with tab_analyze:
                     st.stop()
 
             word_count = len(prd_text.split())
-            st.success(f"✅ Extracted {word_count:,} words across the document.")
+            st.success(f"Extracted {word_count:,} words across the document.")
 
-            with st.spinner("🔴 Critic agent is analyzing your PRD — this takes ~1 minute..."):
+            with st.spinner("Critic agent is analyzing your PRD — this takes ~1 minute..."):
                 try:
                     critique_result = critique_prd(prd_text)
                     st.session_state["critique_result"] = critique_result
@@ -157,27 +156,27 @@ with tab_analyze:
             critique_result = st.session_state["critique_result"]
 
             st.divider()
-            st.subheader("🔴 Critique Report")
+            st.subheader("Critique Report")
             st.markdown(critique_result)
 
             st.download_button(
-                label="⬇️ Download Critique as Markdown",
+                label="Download Critique as Markdown",
                 data=critique_result,
                 file_name=f"Critique_{uploaded_file.name.replace('.pdf', '')}.md",
                 mime="text/markdown",
                 key="download_critique"
             )
 
-            # ── Stage 2: Rewrite ─────────────────────────────────────────────
+            #Stage 2: Rewrite
             st.divider()
-            st.subheader("📝 Generate an Improved PRD")
+            st.subheader("Generate an Improved PRD")
             st.caption(
                 "Based on the critique above, the Market Researcher and Lead PM will collaborate "
                 "to produce a stronger, fully fleshed-out PRD. All flagged gaps will be addressed."
             )
 
-            if st.button("✨ Regenerate Improved PRD", use_container_width=False, key="rewrite_btn"):
-                with st.spinner("🔍 Researcher validating market claims... 📝 Writer rebuilding PRD... (~2 min)"):
+            if st.button("Regenerate Improved PRD", use_container_width=False, key="rewrite_btn"):
+                with st.spinner("Researcher validating market claims... Writer rebuilding PRD... (~2 min)"):
                     try:
                         improved_prd = rewrite_prd(
                             prd_text=st.session_state["prd_text"],
@@ -193,11 +192,11 @@ with tab_analyze:
                 improved_prd = st.session_state["improved_prd"]
 
                 st.divider()
-                st.subheader("📄 Improved PRD")
+                st.subheader("Improved PRD")
                 st.markdown(improved_prd)
 
                 st.download_button(
-                    label="⬇️ Download Improved PRD as Markdown",
+                    label="Download Improved PRD as Markdown",
                     data=improved_prd,
                     file_name=f"Improved_PRD_{uploaded_file.name.replace('.pdf', '')}.md",
                     mime="text/markdown",
