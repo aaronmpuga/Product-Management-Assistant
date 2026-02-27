@@ -1,4 +1,4 @@
-# 🤖 Auto-PM Optimizer
+# PRD Creation Tool
 
 An agentic AI workflow that uses 7 specialized AI agents to generate detailed, grounded Product Requirements Documents (PRDs) — or analyze and improve existing ones.
 
