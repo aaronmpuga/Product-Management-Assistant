@@ -18,14 +18,15 @@ Built with [CrewAI](https://crewai.com), [Google Gemini](https://aistudio.google
 ## Agent Roster
 
 | Agent | Role |
-|---|---|---|
+|---|---|
 | Market Research Analyst | Competitive landscape, market sizing, pricing benchmarks |
-| UX Research Lead | User personas, journey mapping, design implications | 
-| Technical Architect | Bottlenecks, MVP tech stack, optimization insights | 
-| Startup Financial Analyst | TAM/SAM/SOM, pricing tiers, MVP cost, unit economics | 
-| Risk & Compliance Officer | Regulatory, security, and market risks with mitigations | 
-| Product Critic / Red Team | Challenges assumptions, flags contradictions, blind spots | 
+| UX Research Lead | User personas, journey mapping, design implications |
+| Technical Architect | Bottlenecks, MVP tech stack, optimization insights |
+| Financial Analyst | pricing tiers, MVP cost |
+| Risk & Compliance Officer | Regulatory, security, and market risks with mitigations |
+| Product Critic / Red Team | Challenges assumptions, flags contradictions, finds blind spots |
 | Lead Product Manager | Synthesizes all outputs into the final PRD | 
+
 
 ---
 
