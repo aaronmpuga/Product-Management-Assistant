@@ -2,7 +2,7 @@
 
 An agentic AI workflow that uses 7 specialized AI agents to generate detailed, grounded Product Requirements Documents (PRDs) — or analyze and improve existing ones.
 
-Built with [CrewAI](https://crewai.com), [Google Gemini](https://aistudio.google.com), [Tavily](https://tavily.com), and [Streamlit](https://streamlit.io).
+Built with [CrewAI](https://crewai.com), [Google Cloud](https://console.cloud.google.com/welcome/new?project=project-129feeee-19fe-4468-bbe&supportedpurview=project), [Tavily](https://tavily.com), and [Streamlit](https://streamlit.io).
 
 ---
 
